@@ -19,21 +19,23 @@ right_motor = Motor(Port.B)
 
 right_color = ColorSensor(Port.S1)
 left_color = ColorSensor(Port.S2)
-distance = InfraredSensor(Port.S3)
+#distance = InfraredSensor(Port.S4)
 
-l_reflect = 0
 r_reflect = 0
 dist = 0
 l_speed = 0
 r_speed = 0
-const_speed = 120
+const_speed = 240
 
 
 # Write your program here.
 while True:
-    l_reflect = left_color.reflect()
-    r_reflect = right_color.reflect()
-    dist = distance.distance()
+    l_reflect = left_color.reflection()
+    r_reflect = right_color.reflection()
+    #dist = distance.distance()
+    l_speed = const_speed + (r_reflect - l_reflect)*5
+    r_speed = const_speed + (l_reflect - r_reflect)*5
 
+    left_motor.run(l_speed)
+    right_motor.run(r_speed)
 
-    
