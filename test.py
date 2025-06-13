@@ -14,28 +14,14 @@ from pybricks.media.ev3dev import SoundFile, ImageFile
 
 # Create your objects here.
 ev3 = EV3Brick()
-left_motor = Motor(Port.A)
-right_motor = Motor(Port.B)
-
-right_color = ColorSensor(Port.S1)
-left_color = ColorSensor(Port.S2)
-#distance = InfraredSensor(Port.S4)
-
-r_reflect = 0
-dist = 0
-l_speed = 0
-r_speed = 0
-const_speed = 450
-
-
-# Write your program here.
+left_sensor = ColorSensor(Port.S2)
+right_sensor = ColorSensor(Port.S1)
+distance_sensor = UltrasonicSensor(Port.S4)
 while True:
-    l_reflect = left_color.reflection()
-    r_reflect = right_color.reflection()
-    #dist = distance.distance()
-    l_speed = const_speed + (r_reflect - l_reflect)*8
-    r_speed = const_speed + (l_reflect - r_reflect)*8
+    ev3.screen.clear()
+    ev3.screen.print(left_sensor.reflection())
+    ev3.screen.print(right_sensor.reflection())
+    ev3.screen.print(distance_sensor.distance())
+    wait(100)
 
-    left_motor.run(l_speed)
-    right_motor.run(r_speed)
 
